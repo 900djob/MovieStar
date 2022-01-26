@@ -13,17 +13,30 @@ import { Row } from "antd";
 const LandingPage = () => {
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
+  const [CurrentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-        setMovies(res.results);
-        setMainMovieImage(res.results[0]);
-      });
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res)
+      setMovies([...Movies, ...res.results]);
+      setMainMovieImage(res.results[0]);
+      setCurrentPage(res.page)
+    });
   }, []);
+
+  const loadMoreItems = () => {
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+    fetch(endpoint)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res)
+      setMovies([...Movies, ...res.results]);
+      setCurrentPage(res.page);
+    });
+  }
 
   return (
     <>
@@ -38,7 +51,7 @@ const LandingPage = () => {
         )}
 
         <div style={{ width: "85%", margin: "1rem auto" }}>
-          <h2>Movies by latest</h2>
+          <h2>Movies by popular</h2>
           <hr />
           {/* movie grid card */}
           <Row gutter={[16, 16]}>
@@ -60,7 +73,7 @@ const LandingPage = () => {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <button>Load More</button>
+          <button onClick={loadMoreItems}>Load More</button>
         </div>
       </div>
     </>
