@@ -6,7 +6,7 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import Auth from "../../../hoc/auth";
 import styles from "./LandingPage.module.css";
 import MainImage from "./Section/MainImage";
-import GridCards from "../common/GridCards";
+import GridCards from "../commons/GridCards";
 import { Row } from "antd";
 
 

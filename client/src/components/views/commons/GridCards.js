@@ -6,7 +6,7 @@ function GridCards(props) {
     <div>
       <Col lg={24} md={24} xs={24}>
         <div style={{ position: "relative" }}>
-          <a href={`/movie/${props.movidId}`}>
+          <a href={`/movie/${props.movieId}`}>
             <img
               style={{ width: "100%", height: "320px" }}
               src={props.image}
