@@ -6,6 +6,9 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 import Auth from "../../../hoc/auth";
 import styles from "./LandingPage.module.css";
 import MainImage from "./Section/MainImage";
+import GridCards from "../common/GridCards";
+import { Row } from "antd";
+
 
 const LandingPage = () => {
   const [Movies, setMovies] = useState([]);
@@ -16,6 +19,7 @@ const LandingPage = () => {
     fetch(endpoint)
       .then((res) => res.json())
       .then((res) => {
+        console.log(res)
         setMovies(res.results);
         setMainMovieImage(res.results[0]);
       });
@@ -37,6 +41,22 @@ const LandingPage = () => {
           <h2>Movies by latest</h2>
           <hr />
           {/* movie grid card */}
+          <Row gutter={[16, 16]}>
+            {Movies &&
+              Movies.map((movie, index) => (
+                <React.Fragment key={index}>
+                  <GridCards
+                    image={
+                      movie.poster_path
+                        ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
+                        : null
+                    }
+                    movieId={movie.id}
+                    movieName={movie.original_title}
+                  />
+                </React.Fragment>
+              ))}
+          </Row>
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
