@@ -54,11 +54,12 @@ const LandingPage = () => {
           <h2>Movies by popular</h2>
           <hr />
           {/* movie grid card */}
-          <Row gutter={[16, 16]}>
+          <Row gutter={[35, 35]}>
             {Movies &&
               Movies.map((movie, index) => (
                 <React.Fragment key={index}>
                   <GridCards
+                    landingPage
                     image={
                       movie.poster_path
                         ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
