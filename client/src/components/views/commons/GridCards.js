@@ -5,11 +5,11 @@ function GridCards(props) {
   if(props.landingPage) {
     return (
       <div>
-        <Col lg={24} md={24} xs={24}>
+        <Col lg={25} md={24} xs={24}>
           <div style={{ position: "relative" }}>
             <a href={`/movie/${props.movieId}`}>
               <img
-                style={{ width: "100%", height: "320px" }}
+                style={{ width: "214px", height: "320px" }}
                 src={props.image}
                 alt={props.movieName}
               />
@@ -24,7 +24,7 @@ function GridCards(props) {
         <Col lg={24} md={24} xs={24}>
           <div style={{ position: "relative" }}>
               <img
-                style={{ width: "100%", height: "320px" }}
+                style={{ width: "214px", height: "320px" }}
                 src={props.image}
                 alt={props.actorName}
               />

@@ -5,8 +5,8 @@ import Auth from "../../../hoc/auth";
 import MainImage from "../LandingPage/Section/MainImage";
 import MovieInfo from "./Section/MovieInfo";
 import GridCards from "../commons/GridCards";
-import { Row } from "antd";
-
+import Favorite from "./Section/Favorite";
+import { Row, Button } from "antd";
 
 function MovieDetail(props) {
   const { movieId } = useParams();
@@ -25,21 +25,19 @@ function MovieDetail(props) {
         setMovie(res);
       });
 
-      fetch(endpointCrew)
+    fetch(endpointCrew)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.cast)
-        setCasts(res.cast)
+        setCasts(res.cast);
       });
-
   }, []);
 
   const toggleActorView = () => {
-    setActorToggle(!ActorToggle)
-  }
+    setActorToggle(!ActorToggle);
+  };
 
   return (
-    <div>
+    <div style={{ width: "100%", margin: "0" }}>
       {/* Header */}
       <MainImage
         image={`${IMAGE_BASE_URL}w1280${Movie.backdrop_path}`}
@@ -48,6 +46,13 @@ function MovieDetail(props) {
       />
       {/* body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Favorite
+            movieInfo={Movie}
+            movieId={movieId}
+            userFrom={localStorage.getItem("userId")}
+          />
+        </div>
         {/* movie info */}
         <MovieInfo movie={Movie} />
         <br />
@@ -55,7 +60,9 @@ function MovieDetail(props) {
         <div
           style={{ display: "flex", justifyContent: "center", margin: "2rem" }}
         >
-          <button style={{margin: "3rem"}} onClick={toggleActorView}>Toggle Actors View</button>
+          <Button style={{ margin: "3rem" }} onClick={toggleActorView}>
+            Toggle Actors View
+          </Button>
         </div>
         {ActorToggle && (
           <Row gutter={[35, 35]}>

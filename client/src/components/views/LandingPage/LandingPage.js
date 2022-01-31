@@ -4,11 +4,9 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from "../../../Config";
 // import { useDispatch } from "react-redux";
 // import { logoutUser } from "../../../_actions/user_actions";
 import Auth from "../../../hoc/auth";
-import styles from "./LandingPage.module.css";
 import MainImage from "./Section/MainImage";
 import GridCards from "../commons/GridCards";
-import { Row } from "antd";
-
+import { Row, Button } from "antd";
 
 const LandingPage = () => {
   const [Movies, setMovies] = useState([]);
@@ -18,25 +16,25 @@ const LandingPage = () => {
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetch(endpoint)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res)
-      setMovies([...Movies, ...res.results]);
-      setMainMovieImage(res.results[0]);
-      setCurrentPage(res.page)
-    });
+      .then((res) => res.json())
+      .then((res) => {
+        setMovies([...Movies, ...res.results]);
+        setMainMovieImage(res.results[0]);
+        setCurrentPage(res.page);
+      });
   }, []);
 
   const loadMoreItems = () => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
-    fetch(endpoint)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res)
-      setMovies([...Movies, ...res.results]);
-      setCurrentPage(res.page);
-    });
-  }
+    const endpointPage = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
+      CurrentPage + 1
+    }`;
+    fetch(endpointPage)
+      .then((res) => res.json())
+      .then((res) => {
+        setMovies([...Movies, ...res.results]);
+        setCurrentPage(res.page);
+      });
+  };
 
   return (
     <>
@@ -74,7 +72,7 @@ const LandingPage = () => {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={loadMoreItems}>Load More</button>
+          <Button onClick={loadMoreItems}>Load More</Button>
         </div>
       </div>
     </>

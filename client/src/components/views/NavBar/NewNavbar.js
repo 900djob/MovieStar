@@ -13,7 +13,7 @@ const NewNavbar = () => {
     if (!user.userData.isAuth) {
       navigate("/login");
     } else {
-      navigate("/post");
+      navigate("/favorite");
     }
   };
 
@@ -35,7 +35,7 @@ const NewNavbar = () => {
             className={styles.postRegister}
             onClick={handlePost}
           >
-            글쓰기
+            즐겨찾기
           </button>
           {user.userData && !user.userData.isAuth ? (
             <button
