@@ -27,7 +27,7 @@ const NewNavbar = () => {
         className={styles.navbar}
       >
         <div className={styles.logo}>
-          <a href="/">MyStar</a>
+          <a href="/">MovieStar</a>
         </div>
         <div className={styles.navbarElementWrapper}>
           <button
